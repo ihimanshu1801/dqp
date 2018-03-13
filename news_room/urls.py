@@ -6,9 +6,9 @@ from . import views
 
 
 urlpatterns = {
-    # path('parentinfograph/', CreateView.as_view(), name="create"),
-    # re_path(r'^parentinfograph/(?P<pk>[0-9]+)/$',
-    #         DetailsView.as_view(), name="details"),
+    path('parentinfograph/', CreateView.as_view(), name="create"),
+    re_path(r'^parentinfograph/(?P<pk>[0-9]+)/$',
+            DetailsView.as_view(), name="details"),
 
     path('infograph/', CreateView.as_view(), name="create"),
     re_path(r'^infograph/(?P<pk>[0-9]+)/$',

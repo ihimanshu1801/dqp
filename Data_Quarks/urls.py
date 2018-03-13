@@ -24,7 +24,7 @@ urlpatterns = [
 
     # User management
     path('users/', include('users.urls')),
-    path('newsroom/', include('newsroom.urls')),
+    path('newsroom/', include('news_room.urls')),
 
     path('accounts/', include('allauth.urls')), # new
 ]

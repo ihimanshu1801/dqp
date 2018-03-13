@@ -49,7 +49,7 @@ INSTALLED_APPS = [
 
     'pages',
     'users',
-    'newsroom',
+    'news_room',
 ]
 
 AUTH_USER_MODEL = 'users.CustomUser'  #new
@@ -89,6 +89,18 @@ WSGI_APPLICATION = 'Data_Quarks.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+#         'NAME': 'narada',                      # Or path to database file if using sqlite3.
+#         # The following settings are not used with sqlite3:
+#         'USER': 'ifguser',
+#         'PASSWORD': 'ifgpwd123',
+#         'HOST': '35.226.68.214',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+#         'PORT': '3306',                      # Set to empty string for default.
+#     }
+# }
 
 DATABASES = {
     'default': {
@@ -135,7 +147,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'

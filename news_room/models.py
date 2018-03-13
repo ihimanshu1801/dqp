@@ -40,12 +40,15 @@ class InfographCategory(models.Model):
     class Meta:
         verbose_name = "InfographCategory"
         verbose_name_plural = "InfographCategories"
+
+    def __str__(self):
+        return self.category
 #
 class AppSource(models.Model):
     source_id = models.AutoField(primary_key=True, unique = True)
     source = models.URLField(max_length = 100)
     source_type = models.CharField(max_length = 50)
-    name = models.URLField(max_length = 100)
+    domain_url = models.URLField(max_length = 100,  default='www.test.com')
 
     class Meta:
         verbose_name = "AppSource"
@@ -62,6 +65,8 @@ class Infograph(models.Model):
     c_id = models.PositiveIntegerField()
     status_id = models.PositiveIntegerField()
     source_id = models.PositiveIntegerField()
+    internal_url = models.ImageField(upload_to='infograph.jpg')
+    external_url = models.URLField(max_length = 100,default='www.test1.com')
     parentinfograph = models.ForeignKey(ParentInfograph, on_delete=models.CASCADE,null = True)
     infographcategory = models.ForeignKey(InfographCategory, on_delete=models.CASCADE, null = True)
     appstatus = models.ForeignKey(AppStatus, on_delete=models.CASCADE,null = True)

@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.utils import timezone
 from django.views.generic import TemplateView
 from rest_framework import viewsets
+from django.contrib.auth.decorators import login_required
 
 from rest_framework import generics
 from . serializers import ParentInfographSerializer,InfographSerializer#InfographCategorySerializer#,MasterTopicsSerializer,TopicsSerializer
@@ -26,11 +27,6 @@ import requests
 #     queryset = ParentInfograph.objects.all().order_by('title')
 #     serializer_class = ParentInfographSerializer
 
-class InfographListView(ListView):
-    model = Infograph
-
-    def get_queryset(self):
-        return Infograph.objects.filter(date_created__lte=timezone.now()).order_by('-date_created')
 
 
 class CreateView(generics.ListCreateAPIView):
@@ -62,6 +58,14 @@ class DetailsView(generics.RetrieveUpdateDestroyAPIView):
 
     queryset = Infograph.objects.all()
     serializer_class = InfographSerializer
+
+
+class InfographListView(ListView):
+    model = Infograph
+
+    def get_queryset(self):
+        return Infograph.objects.filter(date_created__lte=timezone.now()).order_by('-date_created')
+
 
 
 # class CreateView(generics.ListCreateAPIView):

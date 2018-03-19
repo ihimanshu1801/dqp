@@ -187,9 +187,9 @@ class UserTopic(models.Model):
     topics = models.ForeignKey(Topics, on_delete=models.CASCADE, null = True)
     appstatus = models.ForeignKey(AppStatus, on_delete=models.CASCADE, null = True)
 
-    def __str__(self):
-        return self.name
-#
+#     def __str__(self):
+#         return self.users
+# #
 class UserEntity(models.Model):
     ue_id = models.AutoField(primary_key=True, unique = True)
     u_id = models.PositiveIntegerField()

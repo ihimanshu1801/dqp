@@ -8,8 +8,6 @@ class ParentInfograph(models.Model):
     description = models.CharField(max_length = 255)
     date_created = models.DateTimeField(default=timezone.now)
 
-    # def get_absolute_url(self):
-    #     return reverse('home', kwargs={'pk':self.pk})
 
     def __str__(self):
         return self.name
@@ -72,6 +70,9 @@ class Infograph(models.Model):
     appstatus = models.ForeignKey(AppStatus, on_delete=models.CASCADE,null = True)
     appsource = models.ForeignKey(AppSource, on_delete=models.CASCADE, null = True)
 
+
+    def get_absolute_url(self):
+        return reverse("github",kwargs={'pk':self.pk})
 
     def __str__(self):
         return self.name

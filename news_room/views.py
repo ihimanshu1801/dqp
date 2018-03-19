@@ -1,11 +1,36 @@
 from django.shortcuts import render
+from django.utils import timezone
+from django.views.generic import TemplateView
+from rest_framework import viewsets
 
 from rest_framework import generics
 from . serializers import ParentInfographSerializer,InfographSerializer#InfographCategorySerializer#,MasterTopicsSerializer,TopicsSerializer
 from . models import ParentInfograph, Infograph,InfographCategory, MasterTopics,Topics
 from django.contrib.auth.models import User
+from django.views.generic import (TemplateView,ListView,
+                                  DetailView,CreateView,
+                                  UpdateView,DeleteView)
+
 import requests
 
+# class Index(TemplateView):
+#     template_name = "index.html"
+#     def get_context_data(self):
+#         context = super(Index, self).get_context_data()
+#         return context
+
+# class ParentInfographViewSet(viewsets.ModelViewSet):
+#     """
+#     API endpoint that allows users to be viewed or edited.
+#     """
+#     queryset = ParentInfograph.objects.all().order_by('title')
+#     serializer_class = ParentInfographSerializer
+
+class InfographListView(ListView):
+    model = Infograph
+
+    def get_queryset(self):
+        return Infograph.objects.filter(date_created__lte=timezone.now()).order_by('-date_created')
 
 
 class CreateView(generics.ListCreateAPIView):
@@ -81,22 +106,22 @@ class DetailsView(generics.RetrieveUpdateDestroyAPIView):
 #     queryset = Topics.objects.all()
 #     serializer_class = TopicsSerializer
 # #
-# # # class UserView(generics.ListAPIView):
-# # #     """View to list the user queryset."""
-# # #     queryset = User.objects.all()
-# # #     serializer_class = UserSerializer
-# # #
-# # #
-# # # class UserDetailsView(generics.RetrieveAPIView):
-# # #     """View to retrieve a user instance."""
-# # #     queryset = CustomUser.objects.all()
-# # #     serializer_class = UserSerializer
-# # #
-# # #
-# # # def home(request):
-# # #     response = requests.get('http://freegeoip.net/json/')
-# # #     geodata = response.json()
-# # #     return render(request, 'home.html', {
-# # #         'ip': geodata['ip'],
-# # #         'country': geodata['country_name']
-# #     # })
+# class UserView(generics.ListAPIView):
+#     """View to list the user queryset."""
+#     queryset = User.objects.all()
+#     serializer_class = UserSerializer
+#
+#
+# class UserDetailsView(generics.RetrieveAPIView):
+#     """View to retrieve a user instance."""
+#     queryset = CustomUser.objects.all()
+#     serializer_class = UserSerializer
+
+
+# def home(request):
+#     response = requests.get('http://freegeoip.net/json/')
+#     geodata = response.json()
+#     return render(request, 'home.html', {
+#         'ip': geodata['ip'],
+#         'country': geodata['country_name']
+#     })

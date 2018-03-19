@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+    <head>
+        <title>Data Quarks</title>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+        {# MEDIUM STYLE EDITOR#}
+        <script src="//cdn.jsdelivr.net/medium-editor/latest/js/medium-editor.min.js"></script>
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/medium-editor/latest/css/medium-editor.min.css" type="text/css" media="screen" charset="utf-8">
+
+
+        {# Custom CSS#}
+        <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+
+        {# Fonts#}
+        <link href="https://fonts.googleapis.com/css?family=Montserrat|Russo+One" rel="stylesheet">
+
+
+
+
+
+<body class='loader'>
+
+<!--NAVBAR  -->
+  <nav class="navbar navbar-default techfont custom-navbar">
+    <div class="container">
+
+
+      <ul class="nav navbar-nav">
+        <li><a class='navbar-brand bigbrand' href="{% url 'post_list' %}">My Tech blog</a></li>
+        <!--When  I click on My Tech Blog I am requested to tha home page that is "post_list"  -->
+        <li><a href="{% url 'about'%}">About</a></li>
+        <!-- We want to have  "about" page -->
+        <li><a href="https://www.github.com">Github</a></li>
+        <li><a href="https://www.linkedin.com">LinkedIn</a></li>
+
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+
+      <!-- If the user is logged-in,which comes from the auth library in django:
+       they see another page that says New Post,Drafts,etc -->
+        {% if user.is_authenticated %}
+        <li>
+          <a href="{% url 'post_new' %}" >New Post</a>
+        </li>
+
+        <li>
+          <a href="{% url 'post_draft_list' %}">Drafts</a>
+        </li>
+        <li>
+          <!--We also want to have a "logut button"  -->
+          <a href="{% url 'logout' %}" >Log out</a>
+        </li>
+        <li>
+          <a >Welcome: {{ user.username }}</a>
+        </li>
+          {% else %}
+          <li><a class='nav navbar-right' href="{% url 'login' %}" ><span class="glyphicon glyphicon-user"></span></a></li>
+        {% endif %}
+
+      </ul>
+  </div>
+</nav>
+
+<!-- CONTENT BLOCK -->
+  <!-- {# The actual blog posts#} -->
+        <div class="content container">
+          <!--wHAT IF SOMEONE WANTS TO RUN THIS SITE ON MOBILE ,MOBILE VIEW  -->
+          <!--This is basically bootstrap, for mobile or if sm1 want to zoomout  -->
+            <div class="row">
+                <div class="col-md-8">
+                  <div class="blog_posts">
+                    {% block content %}
+                    {% endblock %}
+
+                  </div>
+
+                </div>
+            </div>
+        </div>
+
+<!-- {# SCRIPTS#} -->
+{% block content %}
+{% endblock %}
+<script type="text/javascript" src="{% static 'js/blog.js' %}"></script>
+
+</body>
+</html>

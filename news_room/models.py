@@ -70,10 +70,6 @@ class Infograph(models.Model):
     appstatus = models.ForeignKey(AppStatus, on_delete=models.CASCADE,null = True)
     appsource = models.ForeignKey(AppSource, on_delete=models.CASCADE, null = True)
 
-
-    def get_absolute_url(self):
-        return reverse("github",kwargs={'pk':self.pk})
-
     def __str__(self):
         return self.name
 
@@ -99,19 +95,27 @@ class Topics(models.Model):
     t_id = models.AutoField(primary_key=True, unique = True)
     mt_id = models.PositiveIntegerField()
     topic_code = models.CharField(max_length = 50)
-    topicdescription = models.CharField(max_length = 50)
+    topic_description = models.CharField(max_length = 50)
     mastertopics = models.ForeignKey(MasterTopics, on_delete=models.CASCADE,  null = True)
 
     class Meta:
         verbose_name = "Topic"
         verbose_name_plural = "Topics"
-#
-# #
+
+    def __str__(self):
+        return self.topic_description
 # #
 class CustomMetaTags(models.Model):
     mtg_id =  models.AutoField(primary_key=True, unique = True)
     metatag = models.CharField(max_length = 50)
     description = models.CharField(max_length = 100)
+
+    class Meta:
+        verbose_name = "CustomMetaTags"
+        verbose_name_plural = "CustomMetaTags"
+
+    def __str__(self):
+        return self.description
 
 
 class Entity(models.Model):
@@ -120,10 +124,26 @@ class Entity(models.Model):
     entity_type = models.CharField(max_length = 50)
     description = models.CharField(max_length = 100)
 
+    class Meta:
+        verbose_name = "Entity"
+        verbose_name_plural = "Entities"
+
+    def __str__(self):
+        return self.description
+
+
+
 class GeoPolitical(models.Model):
     e_id =  models.AutoField(primary_key=True, unique = True)
     gp_code = models.CharField(max_length = 50)
     description = models.CharField(max_length = 100)
+
+    class Meta:
+        verbose_name = "GeoPolitical"
+        verbose_name_plural = "GeoPolitical"
+
+    def __str__(self):
+        return self.description
 
 class InfographAssociation(models.Model):
     i_ad = models.AutoField(primary_key=True, unique = True)
@@ -140,11 +160,26 @@ class InfographAssociation(models.Model):
     entity = models.ForeignKey(Entity, on_delete=models.CASCADE, null = True)
     geopolitical = models.ForeignKey(GeoPolitical, on_delete=models.CASCADE, null = True)
     appstatus = models.ForeignKey(AppStatus, on_delete=models.CASCADE, null = True)
+
+    class Meta:
+        verbose_name = "GeoPolitical"
+        verbose_name_plural = "GeoPolitical"
+        ordering = ['date_created', ]
+
+    def __str__(self):
+        return self.description
+
 # #
 class UserType(models.Model):
     usertype_id = models.AutoField(primary_key=True, unique = True)
     usertype = models.CharField(max_length = 50)
 
+    class Meta:
+        verbose_name = "UserType"
+        verbose_name_plural = "UserType"
+
+    def __str__(self):
+        return self.usertype
 
 class Users(models.Model):
     u_id = models.AutoField(primary_key=True, unique = True)
@@ -163,8 +198,6 @@ class Users(models.Model):
     class Meta:
         verbose_name = "User"
         verbose_name_plural = "Users"
-#
-
 
     def __str__(self):
         return " ".join([self.first_name,
@@ -176,6 +209,10 @@ class AuditType(models.Model):
     audit_type = models.CharField(max_length = 100)
     date_created = models.DateTimeField(default=timezone.now)
 
+    class Meta:
+        verbose_name = "AuditType"
+        verbose_name_plural = "AuditType"
+        ordering = ['date_created', ]
 
 class UserTopic(models.Model):
     ut_id = models.AutoField(primary_key=True, unique = True)
@@ -187,9 +224,14 @@ class UserTopic(models.Model):
     topics = models.ForeignKey(Topics, on_delete=models.CASCADE, null = True)
     appstatus = models.ForeignKey(AppStatus, on_delete=models.CASCADE, null = True)
 
-#     def __str__(self):
-#         return self.users
-# #
+    class Meta:
+        verbose_name = "UserTopic"
+        verbose_name_plural = "UserTopics"
+        ordering = ['topics', ]
+
+    def __str__(self):
+        return self.topics
+
 class UserEntity(models.Model):
     ue_id = models.AutoField(primary_key=True, unique = True)
     u_id = models.PositiveIntegerField()
@@ -200,7 +242,12 @@ class UserEntity(models.Model):
     entity = models.ForeignKey(Entity, on_delete=models.CASCADE,null = True)
     appstatus = models.ForeignKey(AppStatus, on_delete=models.CASCADE, null = True)
 
-#
+    class Meta:
+        verbose_name = "UserEntity"
+        verbose_name_plural = "UserEntities"
+        ordering = ['date_created', ]
+
+
 class UserCustomMetaTags(models.Model):
     umtg_id = models.AutoField(primary_key=True, unique = True)
     u_id = models.PositiveIntegerField()
@@ -210,6 +257,14 @@ class UserCustomMetaTags(models.Model):
     users = models.ForeignKey(Users, on_delete=models.CASCADE, null = True)
     custommetatags = models.ForeignKey(CustomMetaTags, on_delete=models.CASCADE, null = True)
     appstatus = models.ForeignKey(AppStatus, on_delete=models.CASCADE, null = True)
+
+    class Meta:
+        verbose_name = "UserCustomMetaTags"
+        verbose_name_plural = "UserCustomMetaTags"
+        ordering = ['date_created', ]
+
+    def __str__(self):
+        return self.users
 
 
 class UserGeoPolitical(models.Model):
@@ -221,11 +276,24 @@ class UserGeoPolitical(models.Model):
     users = models.ForeignKey(Users, on_delete=models.CASCADE,null = True)
     geopolitical = models.ForeignKey(GeoPolitical, on_delete=models.CASCADE, null = True)
     appstatus = models.ForeignKey(AppStatus, on_delete=models.CASCADE, null = True)
-#
-# #
+
+    class Meta:
+        verbose_name = "UserGeoPolitical"
+        verbose_name_plural = "UserGeoPolitical"
+        ordering = ['date_created', ]
+
+    def __str__(self):
+        return self.users
+
+
 class AssociationType(models.Model):
     at_id = models.AutoField(primary_key=True, unique = True)
     association = models.CharField(max_length = 100)
+
+    class Meta:
+        verbose_name = "AssociationType"
+        verbose_name_plural = "AssociationTypes"
+
 
 class UserAssociations(models.Model):
     ua_id = models.AutoField(primary_key=True, unique = True)
@@ -234,11 +302,14 @@ class UserAssociations(models.Model):
     at_id = models.PositiveIntegerField()
     date_created = models.DateTimeField(default=timezone.now)
     status_id = models.PositiveIntegerField()
-    # users = models.ForeignKey(Users, on_delete=models.CASCADE, null = True)
     users = models.ForeignKey(Users, on_delete=models.CASCADE, null = True)
     associationType = models.ForeignKey(AssociationType, on_delete=models.CASCADE, null = True)
     appstatus = models.ForeignKey(AppStatus, on_delete=models.CASCADE, null = True)
-#
+
+    class Meta:
+        verbose_name = "UserAssociations"
+        verbose_name_plural = "UserAssociations"
+        ordering = ['date_created', ]
 
 class UserAudit(models.Model):
     uau_id = models.AutoField(primary_key=True, unique = True)
@@ -248,6 +319,12 @@ class UserAudit(models.Model):
     date_created = models.DateTimeField(default=timezone.now)
     users = models.ForeignKey(Users, on_delete=models.CASCADE, null = True)
     audittype = models.ForeignKey(AuditType, on_delete=models.CASCADE, null = True)
+
+    class Meta:
+        verbose_name = "UserAudit"
+        verbose_name_plural = "UserAudit"
+        ordering = ['date_created', ]
+
 
 class AppSettings(models.Model):
     as_id = models.AutoField(primary_key=True, unique = True)

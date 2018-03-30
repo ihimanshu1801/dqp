@@ -4,6 +4,7 @@ from . views import CreateView
 from . views import DetailsView
 from . import views
 from rest_framework import routers
+from rest_framework_jwt.views import refresh_jwt_token
 
 # router = routers.DefaultRouter()
 # router.register(r'parentinfograph', views.ParentInfographViewSet)
@@ -12,11 +13,13 @@ from rest_framework import routers
 
 
 urlpatterns = {
-    # re_path(r'^api/', include(router.urls)),
-    # re_path(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    # re_path(r'^index/$', views.Index, name='index'),
-
-    path(' ',views.InfographListView.as_view(),name='infograph_list'),
+    path('rest-auth/', include('rest_auth.urls')),
+    path('rest-auth/registration/', include('rest_auth.registration.urls')),
+    path('refresh-token/', refresh_jwt_token),
+    # path('homepage', views.homepage, name = 'homepage'),
+    # re_path(r'^infographs/(?P<pk>\d+)/$', views.board_topics, name = "board_topics"),
+    # re_path(r'^infographs/(?P<pk>\d+)/new/$', views.new_topic, name='new_topic'),
+    # path(' ',views.InfographListView.as_view(),name='infograph_list'),
 
     path('parentinfograph/', CreateView.as_view(), name="create"),
     re_path(r'^parentinfograph/(?P<pk>[0-9]+)/$',
@@ -24,7 +27,7 @@ urlpatterns = {
 
     path('infograph/', CreateView.as_view(), name="create"),
     re_path(r'^infograph/(?P<pk>[0-9]+)/$',
-            DetailsView.as_view(), name="details"),
+             DetailsView.as_view(), name="details"),
 #
 #     path('mastertopics/', CreateView.as_view(), name="create"),
 #     re_path(r'^mastertopics/(?P<pk>[0-9]+)/$',

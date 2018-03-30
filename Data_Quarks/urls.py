@@ -16,12 +16,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path, re_path
 from rest_framework import routers
+from rest_framework_jwt.views import refresh_jwt_token
 
 
 urlpatterns = [
 
-    path('', include('pages.urls')),
+    path('pages/', include('pages.urls')),
 
+    path('', include('rest_auth.urls')),
+    path('registration/', include('rest_auth.registration.urls')),
+    path('rest-auth/', include('rest_auth.urls')),
+    path('rest-auth/registration/', include('rest_auth.registration.urls')),
+    path('refresh-token/', refresh_jwt_token),
     # Django Admin
     path('admin/', admin.site.urls),
 

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 from django.views.generic import TemplateView
 from rest_framework import viewsets
@@ -11,9 +11,25 @@ from django.contrib.auth.models import User
 from django.views.generic import (TemplateView,ListView,
                                   DetailView,CreateView,
                                   UpdateView,DeleteView)
+# from . models import Infograph
+# from django.http import HttpResponse
+# from django.http import Http404
 
 import requests
 
+
+
+# def homepage(request):
+#     infographs = Infograph.objects.all()
+#     return render(request, 'homepage.html', {'infographs': infographs})
+#
+# def board_topics(request, pk):
+#     infograph = get_object_or_404(Infograph, pk=pk)
+#     return render(request, 'topics.html', {'infographs': infographs})
+#
+# def new_topic(request, pk):
+#     infograph = get_object_or_404(Board, pk=pk)
+#     return render(request, 'new_topic.html', {'infographs': infographs})
 # class Index(TemplateView):
 #     template_name = "index.html"
 #     def get_context_data(self):

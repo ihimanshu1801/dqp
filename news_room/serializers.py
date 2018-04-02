@@ -18,6 +18,15 @@ class InfographSerializer(serializers.ModelSerializer):
         fields = ('i_id', 'name', 'description', 'date_created','parentinfograph',"internal_url","external_url")
         read_only_fields = ('date_created',)
 
+
+class TopicsSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Topics
+        fields = ('t_id', 'mt_id', 'topic_code', 'topic_description','mastertopics')
+        read_only_fields = ('topic_description',)
+
+
 # class InfographCategorySerializer(serializers.ModelSerializer):
 #
 #     class Meta:

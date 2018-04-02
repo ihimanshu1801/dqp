@@ -1,0 +1,11 @@
+<h1>Infograph</h1>
+<ul>
+    {% for infograph in object_list %}
+    <li>{{ infograph.name }}  :
+    <a href="{% url "server_edit" infograph.id %}">{{ infograph.ip }}</a>
+    <a href="{% url "server_delete" infograph.id %}">delete</a>
+    </li>
+    {% endfor %}
+</ul>
+
+<a href="{% url "server_new" %}">New</a>

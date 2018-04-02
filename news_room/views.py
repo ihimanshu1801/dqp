@@ -5,7 +5,7 @@ from rest_framework import viewsets
 from django.contrib.auth.decorators import login_required
 
 from rest_framework import generics
-from . serializers import ParentInfographSerializer,InfographSerializer#InfographCategorySerializer#,MasterTopicsSerializer,TopicsSerializer
+from . serializers import ParentInfographSerializer,InfographSerializer, TopicsSerializer#InfographCategorySerializer#,MasterTopicsSerializer,
 from . models import ParentInfograph, Infograph,InfographCategory, MasterTopics,Topics
 from django.contrib.auth.models import User
 from django.views.generic import (TemplateView,ListView,
@@ -45,7 +45,7 @@ import requests
 
 
 
-class CreateView(generics.ListCreateAPIView):
+class ParentInfographCreateView(generics.ListCreateAPIView):
     """This class defines the create behavior of our rest api."""
     queryset = ParentInfograph.objects.all()
     serializer_class = ParentInfographSerializer
@@ -55,14 +55,14 @@ class CreateView(generics.ListCreateAPIView):
         serializer.save()
 
 
-class DetailsView(generics.RetrieveUpdateDestroyAPIView):
+class ParentInfographDetailsView(generics.RetrieveUpdateDestroyAPIView):
     """This class handles the http GET, PUT and DELETE requests."""
 
     queryset = ParentInfograph.objects.all()
     serializer_class = ParentInfographSerializer
 
 
-class CreateView(generics.ListCreateAPIView):
+class InfographCreateView(generics.ListCreateAPIView):
     queryset = Infograph.objects.all()
     serializer_class = InfographSerializer
 
@@ -70,7 +70,7 @@ class CreateView(generics.ListCreateAPIView):
         serializer.save()
 
 
-class DetailsView(generics.RetrieveUpdateDestroyAPIView):
+class InfographDetailsView(generics.RetrieveUpdateDestroyAPIView):
 
     queryset = Infograph.objects.all()
     serializer_class = InfographSerializer
@@ -78,6 +78,26 @@ class DetailsView(generics.RetrieveUpdateDestroyAPIView):
 
 class InfographListView(ListView):
     model = Infograph
+
+    def get_queryset(self):
+        return Infograph.objects.filter(date_created__lte=timezone.now()).order_by('-date_created')
+# ========================================================
+class TopicsCreateView(generics.ListCreateAPIView):
+    queryset = Topics.objects.all()
+    serializer_class = TopicsSerializer
+
+    def perform_create(self, serializer):
+        serializer.save()
+
+
+class TopicsDetailsView(generics.RetrieveUpdateDestroyAPIView):
+
+    queryset = Topics.objects.all()
+    serializer_class = TopicsSerializer
+
+
+class TopicsListView(ListView):
+    model = Topics
 
     def get_queryset(self):
         return Infograph.objects.filter(date_created__lte=timezone.now()).order_by('-date_created')

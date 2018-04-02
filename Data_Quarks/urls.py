@@ -22,7 +22,7 @@ from rest_framework_jwt.views import refresh_jwt_token
 
 urlpatterns = [
 
-    path('pages/', include('pages.urls')),
+    path('', include('pages.urls')),
 
     path('', include('rest_auth.urls')),
     path('registration/', include('rest_auth.registration.urls')),

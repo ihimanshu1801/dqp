@@ -1,7 +1,7 @@
 from django.urls import path, re_path, include
 from rest_framework.urlpatterns import format_suffix_patterns
-from . views import ParentInfographCreateView, InfographCreateView,TopicsCreateView
-from . views import ParentInfographDetailsView, InfographDetailsView,TopicsDetailsView
+from . views import ParentInfographCreateView, InfographCreateView,TopicsCreateView, UsersCreateView
+from . views import ParentInfographDetailsView, InfographDetailsView,TopicsDetailsView,UsersDetailsView
 from . import views
 from rest_framework import routers
 from rest_framework_jwt.views import refresh_jwt_token
@@ -29,17 +29,23 @@ urlpatterns = {
     re_path(r'^parentinfograph/infograph/(?P<pk>[0-9]+)/$',
              InfographDetailsView.as_view(), name="details"),
 
+    # path('infograph/', InfographList.as_view(), name="list"),
+
     path('topics/', TopicsCreateView.as_view(), name="create"),
     re_path(r'^topics/(?P<pk>[0-9]+)/$',
              TopicsDetailsView.as_view(), name="details"),
 
-    # path('infographs/', InfographListView.as_view(), name="create"),
+    path('users/', UsersCreateView.as_view(), name="users_create"),
+    re_path(r'^users/(?P<pk>[0-9]+)/$',
+             UsersDetailsView.as_view(), name="user_details"),
+
+    # path('infograph/', InfographListView.as_view(), name="create"),
     # re_path(r'^infograph/(?P<pk>[0-9]+)/$',
     #          InfographDetailsView.as_view(), name="details"),
 #
-#     path('mastertopics/', CreateView.as_view(), name="create"),
-#     re_path(r'^mastertopics/(?P<pk>[0-9]+)/$',
-#             DetailsView.as_view(), name="details"),
+    # path('mastertopics/', CreateView.as_view(), name="create"),
+    # re_path(r'^mastertopics/(?P<pk>[0-9]+)/$',
+    #         DetailsView.as_view(), name="details"),
 #
 #     path('topics/', CreateView.as_view(), name="create"),
 #     re_path(r'^topics/(?P<pk>[0-9]+)/$',

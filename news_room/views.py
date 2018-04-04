@@ -56,6 +56,8 @@ class ParentInfographCreateView(generics.ListCreateAPIView):
     """This class defines the create behavior of our rest api."""
     queryset = ParentInfograph.objects.all()
     serializer_class = ParentInfographSerializer
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('name', 'description')
 
 
     def perform_create(self, serializer):
@@ -99,15 +101,18 @@ class InfographDetailsView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = InfographSerializer
 
 #
-# class InfographListView(ListView):
-#     model = Infograph
-#
-#     def get_queryset(self):
-#         return Infograph.objects.filter(date_created__lte=timezone.now()).order_by('-date_created')
+class InfographListView(ListView):
+    model = Infograph
+
+    def get_queryset(self):
+        return Infograph.objects.filter(date_created__lte=timezone.now()).order_by('-date_created')
 # ========================================================
 class TopicsCreateView(generics.ListCreateAPIView):
     queryset = Topics.objects.all()
     serializer_class = TopicsSerializer
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ( 'topic_description')
+
 
     def perform_create(self, serializer):
         serializer.save()

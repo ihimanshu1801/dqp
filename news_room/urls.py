@@ -1,7 +1,7 @@
 from django.urls import path, re_path, include
 from rest_framework.urlpatterns import format_suffix_patterns
 from . views import ParentInfographCreateView, InfographCreateView,TopicsCreateView, UsersCreateView
-from . views import ParentInfographDetailsView, InfographDetailsView,TopicsDetailsView,UsersDetailsView
+from . views import ParentInfographDetailsView, InfographDetailsView,TopicsDetailsView,UsersDetailsView,InfographListView
 from . import views
 from rest_framework import routers
 from rest_framework_jwt.views import refresh_jwt_token
@@ -21,19 +21,19 @@ urlpatterns = {
     # re_path(r'^infographs/(?P<pk>\d+)/new/$', views.new_topic, name='new_topic'),
     # path(' ',views.InfographListView.as_view(),name='infograph_list'),
 
-    path('parentinfograph/', ParentInfographCreateView.as_view(), name="create"),
+    path('parentinfograph/', ParentInfographCreateView.as_view(), name="parentinfograph_list"),
     re_path(r'^parentinfograph/(?P<pk>[0-9]+)/$',
-            ParentInfographDetailsView.as_view(), name="details"),
+            ParentInfographDetailsView.as_view(), name="parentinfograph_details"),
 
-    path('parentinfograph/infograph/', InfographCreateView.as_view(), name="create"),
+    path('parentinfograph/infograph/', InfographCreateView.as_view(), name="infograph_list"),
     re_path(r'^parentinfograph/infograph/(?P<pk>[0-9]+)/$',
-             InfographDetailsView.as_view(), name="details"),
+             InfographDetailsView.as_view(), name="infograph_details"),
 
-    # path('infograph/', InfographList.as_view(), name="list"),
+    path('infograph/', InfographListView.as_view(), name="list"),
 
-    path('topics/', TopicsCreateView.as_view(), name="create"),
+    path('topics/', TopicsCreateView.as_view(), name="topic_list"),
     re_path(r'^topics/(?P<pk>[0-9]+)/$',
-             TopicsDetailsView.as_view(), name="details"),
+             TopicsDetailsView.as_view(), name="topic_details"),
 
     path('users/', UsersCreateView.as_view(), name="users_create"),
     re_path(r'^users/(?P<pk>[0-9]+)/$',

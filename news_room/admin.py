@@ -1,6 +1,10 @@
 from django.contrib import admin
 
-from .models import ParentInfograph , AppStatus, InfographCategory,AppSource, Infograph, MasterTopics,Topics,CustomMetaTags, Entity ,GeoPolitical,InfographAssociation,UserType, Users,AuditType ,UserTopic,UserEntity,UserCustomMetaTags,UserGeoPolitical,AssociationType,UserAssociations ,UserAudit,AppSettings
+from .models import (ParentInfograph , AppStatus, InfographCategory,AppSource,
+                    Infograph, MasterTopics,Topics,CustomMetaTags, Entity ,
+                    GeoPolitical,InfographAssociation,UserType, Users,AuditType
+                    ,UserTopic,UserEntity,UserCustomMetaTags,UserGeoPolitical,
+                    AssociationType,UserAssociations ,UserAudit,AppSettings)
 
 
 admin.site.register(ParentInfograph)

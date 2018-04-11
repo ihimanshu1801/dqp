@@ -162,8 +162,8 @@ class InfographAssociation(models.Model):
     appstatus = models.ForeignKey(AppStatus, on_delete=models.CASCADE, null = True)
 
     class Meta:
-        verbose_name = "GeoPolitical"
-        verbose_name_plural = "GeoPolitical"
+        verbose_name = "InfographAssociation"
+        verbose_name_plural = "InfographAssociations"
         ordering = ['date_created', ]
 
     def __str__(self):

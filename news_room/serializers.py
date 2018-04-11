@@ -15,7 +15,9 @@ class InfographSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Infograph
-        fields = ('i_id', 'p_id', 'name', 'description','c_id','status_id', 'source_id','date_created','parentinfograph',"internal_url","external_url")
+        fields = ('i_id', 'p_id', 'name', 'description','c_id','status_id',
+                 'source_id','date_created','parentinfograph',"internal_url","external_url")
+
         read_only_fields = ('date_created',)
 
 
@@ -30,25 +32,7 @@ class UsersSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Users
-        fields = ('u_id', 'login', 'usertype_id', 'first_name','last_name', 'gp_id', 'status_id', 'date_created','geopolitical')
+        fields = ('u_id', 'login', 'usertype_id', 'first_name','last_name',
+                 'gp_id', 'status_id', 'date_created','geopolitical')
+
         read_only_fields = ('first_name',)
-
-
-# class InfographCategorySerializer(serializers.ModelSerializer):
-#
-#     class Meta:
-#         model = InfographCategory
-#         fields = ('c_id', 'category')
-
-# class MasterTopicsSerializer(serializers.ModelSerializer):
-#
-#     class Meta:
-#         model = MasterTopics
-#         fields = ( 'mt_id', 'master_topic_code', 'master_topic')
-
-#
-# class TopicsSerializer(serializers.ModelSerializer):
-#
-#     class Meta:
-#         model = Topics
-#         fields = ('t_id', 'mt_id', 'topic_code', 'topic_description', 'master_topics')

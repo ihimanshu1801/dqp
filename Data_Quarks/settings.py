@@ -52,6 +52,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.twitter', # new
 
     'django_filters',
+    'guardian',
+    # 'simple',
 
     'pages',
     'users',
@@ -101,8 +103,7 @@ WSGI_APPLICATION = 'Data_Quarks.wsgi.application'
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
 #         'NAME': 'ifg',                      # Or path to database file if using sqlite3.
-#         # The following settings are not used with sqlite3:
-#         'USER': 'ifguser',
+ #         'USER': 'ifguser',
 #         'PASSWORD': 'ifgpwd123',
 #         'HOST': '167.99.86.81',
 #         'PORT': '',
@@ -184,6 +185,10 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
         'rest_framework.permissions.DjangoModelPermissions'
     ),
+
+    # 'DEFAULT_PERMISSION_CLASSES': (
+    #     'infrastructure.permissions.DjangoObjectPermissions',
+    # ),
 }
 
 
@@ -205,6 +210,8 @@ LOGOUT_REDIRECT_URL = 'home'
 AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",
     "allauth.account.auth_backends.AuthenticationBackend",
+    'guardian.backends.ObjectPermissionBackend',
+
 )
 
 SITE_ID = 1

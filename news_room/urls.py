@@ -24,8 +24,8 @@ urlpatterns = {
     re_path(r'^topics/parentinfograph/(?P<pk>[0-9]+)/$',
             ParentInfographDetailsView.as_view(), name="parentinfograph_details"),
 
-    path('parentinfograph/infograph/', InfographCreateView.as_view(), name="infograph_list"),
-    re_path(r'^parentinfograph/infograph/(?P<pk>[0-9]+)/$',
+    path('topics/infograph/', InfographCreateView.as_view(), name="infograph_list"),
+    re_path(r'^topics/infograph/(?P<pk>[0-9]+)/$',
              InfographDetailsView.as_view(), name="infograph_details"),
 
     path('infograph/', InfographListView.as_view(), name="list"),

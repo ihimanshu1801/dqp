@@ -20,16 +20,6 @@ from rest_framework import permissions
 import django_filters.rest_framework
 import django_filters
 import requests
-# from newsroom.models import Infograph
-# from newsroom.serializers import PurchaseSerializer
-# from rest_framework import generics
-# from . models import Infograph
-# from django.http import HttpResponse
-# from django.http import Http404
-
-
-
-
 
 # def homepage(request):
 #     infographs = Infograph.objects.all()
@@ -111,9 +101,14 @@ class ParentInfographDetailsView(generics.RetrieveUpdateDestroyAPIView):
 class InfographCreateView(generics.ListCreateAPIView):
     queryset = Infograph.objects.all()
     serializer_class = InfographSerializer
-    filter_backends = (filters.SearchFilter,django_filters.rest_framework.DjangoFilterBackend,)
-    search_fields = ('name', 'description')
+    filter_backends = (filters.SearchFilter,django_filters.rest_framework.DjangoFilterBackend,
+                      filters.OrderingFilter,)#filters.DjangoObjectPermissionsFilter,)
+    search_fields = ('name', 'description',)
     filter_fields = ('name', 'description',"external_url",)
+    ordering_fields = ("date_created","likes",)
+    # permission_classes = (news_room.permissions.CustomObjectPermissions,)
+    ordering = ("date_created",)
+
 
     def perform_create(self, serializer):
         serializer.save()

@@ -38,12 +38,12 @@ import requests
 #         context = super(Index, self).get_context_data()
 #         return context
 
-# class ParentInfographViewSet(viewsets.ModelViewSet):
-#     """
-#     API endpoint that allows users to be viewed or edited.
-#     """
-#     queryset = ParentInfograph.objects.all().order_by('title')
-#     serializer_class = ParentInfographSerializer
+class ParentInfographViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = ParentInfograph.objects.all().order_by('title')
+    serializer_class = ParentInfographSerializer
 
 
 # class IsAuthenticatedOrReadOnly(permissions.BasePermission):
